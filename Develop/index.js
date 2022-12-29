@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const { default: Choices } = require('inquirer/lib/objects/choices');
-const readmeFormat = ({name, data, license}) =>
+const readmeFormat = (name, {data}, license) =>
   `# ${name}
 
   ## Description
@@ -194,7 +194,7 @@ function writeToFile(fileName, data) {
     // readmeFormat(license, data.name, data.description, data.installation, data.usage, data.contributing, data.tests)
     // readmeFormat(license, data)
 
-    fs.appendFile(`${fileName}.md`, `${readmeFormat(title, {description, installation, usage, contributing, tests} license;)}`, (err)=>
+    fs.appendFile(`${fileName}.md`, `${readmeFormat(fileName, {data}, license)}`, (err)=>
     err ? console.error(err) : console.log('Commit logged!')
     );
 

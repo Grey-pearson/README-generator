@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const { default: Choices } = require('inquirer/lib/objects/choices');
-const readmeFormat = (name, {data}, license) =>
-  `# ${name}
+// const { default: Choices } = require('inquirer/lib/objects/choices');
+const readmeFormat = (name, { data }, license) =>
+    `# ${name}
 
   ## Description
   
@@ -37,112 +37,60 @@ const readmeFormat = (name, {data}, license) =>
   
   ${license}`
 
-
-// Description, Installation, Usage, License, Contributing, Tests, and Questions
-// Table of Contents will be a pregenerated with the README
-// const questions = [
-//     {
-//         message: 'whats the name of your repo?',
-//         name: 'name',
-//         type: 'input'
-//     },{
-//         message: 'discribe youre project',
-//         name: 'description',
-//         type: 'input'
-//     },{
-//         message: 'discribe how to install your app',
-//         name: 'installation',
-//         type: 'input'
-//     },{
-//         message: 'discribe how to use your app',
-//         name: 'usage',
-//         type: 'input'
-//     },{
-//         message: 'who contributed on this repo',
-//         name: 'contributing',
-//         type: 'input'
-//     },{
-//         message: 'input your test instructions',
-//         name: 'tests',
-//         type: 'input'
-//     },{ // will generate a badge @ top screen showing license
-//         message: 'pick a license from said list',
-//         name: 'license',
-//         type: 'list',
-//         choices: ['MIT license', 'The Unlicense']
-//     },{
-//         message: 'enter your username on github',
-//         name: 'username',
-//         type: 'input'
-//     },{
-//         message: 'enter your email',
-//         name: 'email',
-//         type: 'input'
-//     }
-// ];
-
-
 inquirer
-  .prompt([
-    /* Pass your questions in here */ // find if questions object can be passed in here
-    {
-        message: 'whats the name of your repo?',
-        name: 'title',
-        type: 'input'
-    },{
-        message: 'discribe youre project',
-        name: 'description',
-        type: 'input'
-    },{
-        message: 'discribe how to install your app',
-        name: 'installation',
-        type: 'input'
-    },{
-        message: 'discribe how to use your app',
-        name: 'usage',
-        type: 'input'
-    },{
-        message: 'who contributed on this repo',
-        name: 'contributing',
-        type: 'input'
-    },{
-        message: 'input your test instructions',
-        name: 'tests',
-        type: 'input'
-    },{ // will generate a badge @ top screen showing license
-        message: 'pick a license from said list',
-        name: 'license',
-        type: 'list',
-        choices: ['MIT license', 'The Unlicense']
-    },{
-        message: 'enter your username on github',
-        name: 'username',
-        type: 'input'
-    },{
-        message: 'enter your email',
-        name: 'email',
-        type: 'input'
-    }
-])
+    .prompt([
+        {
+            message: 'whats the name of your repo?',
+            name: 'title',
+            type: 'input'
+        }, {
+            message: 'discribe youre project',
+            name: 'description',
+            type: 'input'
+        }, {
+            message: 'discribe how to install your app',
+            name: 'installation',
+            type: 'input'
+        }, {
+            message: 'discribe how to use your app',
+            name: 'usage',
+            type: 'input'
+        }, {
+            message: 'who contributed on this repo',
+            name: 'contributing',
+            type: 'input'
+        }, {
+            message: 'input your test instructions',
+            name: 'tests',
+            type: 'input'
+        }, {
+            message: 'pick a license from said list',
+            name: 'license',
+            type: 'list',
+            choices: ['MIT license', 'The Unlicense']
+        }, {
+            message: 'enter your username on github',
+            name: 'username',
+            type: 'input'
+        }, {
+            message: 'enter your email',
+            name: 'email',
+            type: 'input'
+        }
+    ])
     .then((answers) => {
-        console.log('128')
         fileName = answers.title
-        console.log('130')
-        console.log(answers)
         writeToFile(fileName, answers)
-        console.log(132)
     })
     .catch((error) => {
-        console.log('error ocured try again ' + error )
+        console.log('error ocured try again ' + error)
     });
 
-// TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    // console.log(fileName)
     let license
-    if(data.license === 'MIT license'){
-        license = 
-        `MIT License
+    if (data.license === 'MIT license') {
+        license =
+            `MIT License
 
         Copyright (c) 2022 ${data.username}
         
@@ -163,9 +111,9 @@ function writeToFile(fileName, data) {
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.`
-    } else{
-        license = 
-        `This is free and unencumbered software released into the public domain.
+    } else {
+        license =
+            `This is free and unencumbered software released into the public domain.
 
         Anyone is free to copy, modify, publish, use, compile, sell, or
         distribute this software, either in source code form or as a compiled
@@ -191,20 +139,8 @@ function writeToFile(fileName, data) {
         For more information, please refer to <https://unlicense.org>`
     }
 
-    // readmeFormat(license, data.name, data.description, data.installation, data.usage, data.contributing, data.tests)
-    // readmeFormat(license, data)
-
-    fs.appendFile(`${fileName}.md`, `${readmeFormat(fileName, {data}, license)}`, (err)=>
-    err ? console.error(err) : console.log('Commit logged!')
+    fs.appendFile(`${fileName}.md`, `${readmeFormat(fileName, { data }, license)}`, (err) =>
+        err ? console.error(err) : console.log('Commit logged!')
     );
 
 }
-
-/* what does this doooooooooooo
-// TODO: Create a function to initialize app
-function init() {
-    // runs question function
-}
-// Function call to initialize app
-init();
-*/
